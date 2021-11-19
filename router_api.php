@@ -1,13 +1,14 @@
 <?php
+
 require_once 'libs/Router.php';
-require_once 'api/apiCommentController.php';
+require_once 'controllers/apiCommentController.php';
 
 $router = new Router();
-
-$router->addRoute('comments', 'POST', 'ApiCommentController', 'add');
-$router->addRoute('comments', 'GET', 'ApiCommentController', 'getAll');
-$router->addRoute('comments/:ID', 'GET', 'ApiCommentController', 'getOne');
-$router->addRoute('comments/:ID', 'DELETE', 'ApiCommentController', 'remove');
+$router->addRoute('api/comments', 'GET', 'apiCommentController', 'getAll');
+$router->addRoute('api/comments', 'POST', 'apiCommentController', 'addComment');
+$router->addRoute('api/comments/product/:ID', 'GET', 'apiCommentController', 'getAllCommentsByProduct');
+$router->addRoute('api/comments/:ID', 'GET', 'apiCommentController', 'getOneComment');
+$router->addRoute('api/comments/:ID', 'DELETE', 'apiCommentController', 'removeComment');
                  
 $resource = $_GET["resource"];
 $method = $_SERVER['REQUEST_METHOD'];

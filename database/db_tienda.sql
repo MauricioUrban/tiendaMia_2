@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 14-10-2021 a las 00:02:24
--- Versión del servidor: 10.4.20-MariaDB
--- Versión de PHP: 7.4.21
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 19-11-2021 a las 02:45:31
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,9 +42,35 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 (4, 'sweaters'),
 (28, 'camisas'),
 (29, 'camperas'),
-(34, 'sacones'),
+(34, 'sacocones'),
 (35, 'Bermudas'),
 (37, 'vestidos');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
+  `comment` varchar(250) NOT NULL,
+  `core` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `comments`
+--
+
+INSERT INTO `comments` (`id`, `comment`, `core`, `id_product`, `id_user`) VALUES
+(1, '1ER Comentario', 3, 22, 21),
+(2, '2ER Comentario', 5, 22, 21),
+(3, '3er Comentario', 2, 22, 21),
+(4, '4to Comentario', 5, 22, 21),
+(5, '5to Comentario', 1, 22, 21),
+(6, '6to Comentario', 3, 22, 21);
 
 -- --------------------------------------------------------
 
@@ -123,6 +149,14 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
+-- Indices de la tabla `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_product` (`id_product`),
+  ADD KEY `fk_id_user` (`id_user`);
+
+--
 -- Indices de la tabla `products`
 --
 ALTER TABLE `products`
@@ -147,6 +181,12 @@ ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
+-- AUTO_INCREMENT de la tabla `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
@@ -161,6 +201,13 @@ ALTER TABLE `users`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `products`
